@@ -7,27 +7,55 @@ function RecipeCard({ image, name, category, area, tags }) {
 	const maxCardWidth = 300
 
 	const truncatedName = name.length > 20 ? `${name.substring(0, 20)}...` : name
-	const truncatedTags = tags && tags.split('#').length > 2 ? `${tags.split('#').slice(0, 3).join('#')} ...` : tags
+	const tagList = tags && tags.split('#').slice(1)
+
+	let totalTagLength = 0
+	let displayedTags = []
+	let isMore = false
+
+	if (tagList) {
+		for (let i = 0; i < Math.min(3, tagList.length); i++) {
+			if (totalTagLength + tagList[i].length <= 20) {
+				displayedTags.push(tagList[i])
+				totalTagLength += tagList[i].length
+			} else {
+				isMore = true
+				break
+			}
+		}
+	}
+
+	// const hiddenTag = totalTagLength > 20
 
 	return (
 		<div className="bg-white shadow-xl my-2 rounded-lg w-max-30 h-max-10 overflow-hidden" style={{ maxWidth: `${maxCardWidth}px`, maxHeight: `${maxCardHeight}px` }}>
-			<div className="relative overflow-hidden group">
-				<img className="transition-transform transform-gpu scale-100 group-hover:scale-105 duration-300 object-cover w-full h-full" src={image} alt={name} />
-			</div>
-
-			<div className="p-2">
-				<div>
-					<h2 className="text-lg font-semibold mt-4" title={name}>
+			<img className="w-full cursor-default" src={image} alt={name} />
+			<div className="p-2 my-3">
+				<div className="cursor-default">
+					<h2 className="text-base font-semibold mt-6" title={name}>
 						{truncatedName}
 					</h2>
 					<p className="text-sm mt-3">
 						{category} from <span>{area}</span>
 					</p>
 				</div>
-				{!tags ? <br /> : null}
-				{tags && (
-					<div className="mb-3">
-						<p className="text-xs">{truncatedTags}</p>
+				{!tags ? (
+					<div className="py-1 my-1">
+						<br />
+					</div>
+				) : null}
+				{displayedTags.length > 0 && (
+					<div className="mb-3 cursor-default">
+						{displayedTags.map((tag, index) => (
+							<span key={index} className="inline-block border border-custom-orange rounded-full px-3 py-1 text-xs text-custom-orange mr-1 mb-1 cursor-default">
+								#{tag}
+							</span>
+						))}
+						{isMore && (
+							<span className="text-base text-custom-orange cursor-default" title="Many more">
+								...
+							</span>
+						)}
 					</div>
 				)}
 				<div className="cursor-pointer">

@@ -38,36 +38,6 @@ export const Provider = (props) => {
 		setPopupData(null)
 	}, [])
 
-	// const getAllRecipes = async (startLetter, endLetter) => {
-	// 	try {
-	// 		const letters = Array.from({ length: endLetter.charCodeAt(0) - startLetter.charCodeAt(0) + 1 }, (_, index) => String.fromCharCode(startLetter.charCodeAt(0) + index))
-
-	// 		const strMeals = []
-	// 		const mealThumbs = []
-	// 		const strCategory = []
-	// 		const strArea = []
-	// 		const strTags = []
-
-	// 		for (const letter of letters) {
-	// 			const response = await axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`)
-	// 			if (response.data.meals && Array.isArray(response.data.meals)) {
-	// 				strMeals.push(...response.data.meals.map((meal) => meal.strMeal))
-	// 				mealThumbs.push(...response.data.meals.map((meal) => meal.strMealThumb))
-	// 				strCategory.push(...response.data.meals.map((meal) => meal.strCategory))
-	// 				strArea.push(...response.data.meals.map((meal) => meal.strArea))
-	// 				strTags.push(...response.data.meals.map((meal) => meal.strTags))
-	// 			}
-	// 		}
-	// 		setStrMeal(strMeals)
-	// 		setAllMealThumbs(mealThumbs)
-	// 		setAllStrCategory(strCategory)
-	// 		setAllStrArea(strArea)
-	// 		setAllStrTags(strTags)
-	// 	} catch (error) {
-	// 		console.error('Error fetching data:', error.message)
-	// 	}
-	// }
-
 	const getAllRecipes = async (startLetter, endLetter) => {
 		try {
 			const letters = Array.from({ length: endLetter.charCodeAt(0) - startLetter.charCodeAt(0) + 1 }, (_, index) => String.fromCharCode(startLetter.charCodeAt(0) + index))
@@ -95,7 +65,18 @@ export const Provider = (props) => {
 			setAllMealThumbs(flatRecipes.map((recipe) => recipe.image))
 			setAllStrCategory(flatRecipes.map((recipe) => recipe.category))
 			setAllStrArea(flatRecipes.map((recipe) => recipe.area))
-			setAllStrTags(flatRecipes.map((recipe) => recipe.tags))
+
+			// Format tags with #
+			const formattedTags = flatRecipes.map((recipe) =>
+				recipe.tags
+					? recipe.tags
+							.split(',')
+							.map((tag) => `#${tag.trim()}`)
+							.join(' ')
+					: ''
+			)
+
+			setAllStrTags(formattedTags)
 		} catch (error) {
 			console.error('Error fetching data:', error.message)
 		}

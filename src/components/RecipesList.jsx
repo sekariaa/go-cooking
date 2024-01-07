@@ -22,29 +22,18 @@ function RecipesList() {
 	}, [handleFunction])
 
 	return (
-		<div>
-			<h1>All Recipes:</h1>
+		<div className="max-w-[1640px] mx-auto p-4">
+			<h1 className="text-center text-2xl font-medium pb-2">All Recipes</h1>
 			{loading ? (
 				<Loading />
 			) : (
-				<ul>
-					{/* {state.allStrMeal.map((mealName) => (
-						<div key={mealName}>
-							<RecipeCard
-								image={state.allMealThumbs[state.allStrMeal.indexOf(mealName)]}
-								name={mealName}
-								category={state.allStrCategory[state.allStrMeal.indexOf(mealName)]}
-								area={state.allStrArea[state.allStrMeal.indexOf(mealName)]}
-								tags={state.allStrTags[state.allStrMeal.indexOf(mealName)]}
-							/>
-						</div>
-					))} */}
+				<div className="flex flex-wrap  items-center lg:justify-between ">
 					{state.allStrMeal.map((mealName, index) => (
-						<div key={mealName}>
+						<div key={mealName} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-2">
 							<RecipeCard image={state.allMealThumbs[index]} name={mealName} category={state.allStrCategory[index]} area={state.allStrArea[index]} tags={state.allStrTags[index]} />
 						</div>
 					))}
-				</ul>
+				</div>
 			)}
 		</div>
 	)

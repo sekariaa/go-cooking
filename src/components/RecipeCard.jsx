@@ -11,10 +11,13 @@ function RecipeCard({ image, name, category, area, tags }) {
 
 	return (
 		<div className="bg-white shadow-xl my-2 rounded-lg w-max-30 h-max-10 overflow-hidden" style={{ maxWidth: `${maxCardWidth}px`, maxHeight: `${maxCardHeight}px` }}>
-			<img className="w-full" src={image} alt={name} />
-			<div className="p-2 my-3">
+			<div className="relative overflow-hidden group">
+				<img className="transition-transform transform-gpu scale-100 group-hover:scale-105 duration-300 object-cover w-full h-full" src={image} alt={name} />
+			</div>
+
+			<div className="p-2">
 				<div>
-					<h2 className="text-base font-semibold mt-6" title={name}>
+					<h2 className="text-lg font-semibold mt-4" title={name}>
 						{truncatedName}
 					</h2>
 					<p className="text-sm mt-3">

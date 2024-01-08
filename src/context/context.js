@@ -66,7 +66,6 @@ export const Provider = (props) => {
 			setAllStrCategory(flatRecipes.map((recipe) => recipe.category))
 			setAllStrArea(flatRecipes.map((recipe) => recipe.area))
 
-			// Format tags with #
 			const formattedTags = flatRecipes.map((recipe) =>
 				recipe.tags
 					? recipe.tags

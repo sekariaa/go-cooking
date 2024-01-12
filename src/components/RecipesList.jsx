@@ -13,12 +13,17 @@ function RecipesList() {
 	useEffect(() => {
 		const fetchData = async () => {
 			setLoading(true)
-			await handleFunction.getAllRecipes('a', 'z')
+			await handleFunction.getAllRecipes()
 			setLoading(false)
 		}
 
 		fetchData()
-	}, [currentPage])
+	}, [currentPage, state.isAsc, state.categoriesSelected, state.areasSelected])
+
+	useEffect(() => {
+		handleFunction.getCategories()
+		handleFunction.getAreas()
+	}, [])
 
 	const indexOfLastRecipe = currentPage * itemsPerPage
 	const indexOfFirstRecipe = indexOfLastRecipe - itemsPerPage
@@ -33,9 +38,9 @@ function RecipesList() {
 				<Loading />
 			) : (
 				<>
-					<div className="flex flex-wrap">
+					<div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
 						{currentRecipes.map((mealName, index) => (
-							<div key={index + indexOfFirstRecipe} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-2 xl:w-1/6">
+							<div key={index + indexOfFirstRecipe}>
 								<div className="flex justify-center">
 									<RecipeCard
 										image={state.allMealThumbs[index + indexOfFirstRecipe]}

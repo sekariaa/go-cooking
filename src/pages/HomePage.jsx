@@ -3,16 +3,24 @@ import Navigation from '../components/Navigation'
 import Hero from '../components/Hero'
 import CategoryCardList from '../components/CategoryCardList'
 import RecipesList from '../components/RecipesList'
-// import Filter from '../components/Filter'
+import Sorting from '../components/Sorting'
+import Filter from '../components/Filter'
 
 function HomePage() {
 	return (
-		<div>
+		<div className="max-w-[1640px] mx-auto">
 			<Navigation />
 			<Hero />
 			<CategoryCardList />
-			{/* <Filter /> */}
-			<RecipesList />
+			<div className="flex">
+				<div className="flex-none w-1/4 bg-custom-beige p-4">
+					<Sorting />
+					<Filter />
+				</div>
+				<div className="mx-auto">
+					<RecipesList />
+				</div>
+			</div>
 		</div>
 	)
 }

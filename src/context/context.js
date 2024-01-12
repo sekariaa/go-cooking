@@ -1,5 +1,3 @@
-// context.js
-
 import axios from 'axios'
 import React, { createContext, useState, useCallback } from 'react'
 

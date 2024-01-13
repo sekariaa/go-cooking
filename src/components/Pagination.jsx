@@ -21,12 +21,12 @@ function Pagination({ itemsPerPage, totalItems, currentPage, paginate }) {
 		<div className="p-4 mt-4 text-xs md:text-base lg:text-base">
 			<ul className="flex flex-wrap items-center justify-center">
 				<li className="mx-1">
-					<button onClick={() => paginate(1)} className={`px-2 py-2 text-custom-orange rounded focus:outline-none hover:bg-custom-beige ${currentPage === 1 ? 'cursor-not-allowed' : ''}`} disabled={currentPage === 1}>
+					<button onClick={() => paginate(1)} className={`px-2 py-2 text-custom-orange rounded focus:outline-none hover:bg-custom-beige ${currentPage === 1 ? 'button-disabled' : ''}`} disabled={currentPage === 1}>
 						<BiFirstPage />
 					</button>
 				</li>
 				<li className="mx-1">
-					<button onClick={() => paginate(currentPage - 1)} className={`px-2 py-2 text-custom-orange rounded focus:outline-none hover:bg-custom-beige ${currentPage === 1 ? 'cursor-not-allowed' : ''}`} disabled={currentPage === 1}>
+					<button onClick={() => paginate(currentPage - 1)} className={`px-2 py-2 text-custom-orange rounded focus:outline-none hover:bg-custom-beige ${currentPage === 1 ? 'button-disabled' : ''}`} disabled={currentPage === 1}>
 						<GrFormPrevious />
 					</button>
 				</li>
@@ -50,7 +50,7 @@ function Pagination({ itemsPerPage, totalItems, currentPage, paginate }) {
 				<li className="mx-1">
 					<button
 						onClick={() => paginate(currentPage + 1)}
-						className={`px-2 py-2 text-custom-orange rounded focus:outline-none hover:bg-custom-beige ${currentPage === totalPages ? 'cursor-not-allowed' : ''}`}
+						className={`px-2 py-2 text-custom-orange rounded focus:outline-none hover:bg-custom-beige ${currentPage === totalPages ? 'button-disabled' : ''}`}
 						disabled={currentPage === totalPages}
 					>
 						<GrFormNext />
@@ -59,7 +59,7 @@ function Pagination({ itemsPerPage, totalItems, currentPage, paginate }) {
 				<li className="mx-1">
 					<button
 						onClick={() => paginate(totalPages)}
-						className={`px-2 py-2 text-custom-orange rounded focus:outline-none hover:bg-custom-beige ${currentPage === totalPages ? 'cursor-not-allowed' : ''}`}
+						className={`px-2 py-2 text-custom-orange rounded focus:outline-none hover:bg-custom-beige ${currentPage === totalPages ? 'button-disabled' : ''}`}
 						disabled={currentPage === totalPages}
 					>
 						<BiLastPage />

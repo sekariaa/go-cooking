@@ -57,11 +57,7 @@ function Pagination({ itemsPerPage, totalItems, currentPage, paginate }) {
 					</button>
 				</li>
 				<li className="mx-1">
-					<button
-						onClick={() => paginate(totalPages)}
-						className={`px-2 py-2 text-custom-orange rounded focus:outline-none hover:bg-custom-beige ${currentPage === totalPages ? 'button-disabled' : ''}`}
-						disabled={currentPage === totalPages}
-					>
+					<button onClick={() => paginate(totalPages)} className={`px-2 py-2 text-custom-orange rounded focus:outline-none hover:bg-custom-beige ${currentPage === totalPages ? 'button-disabled' : ''}`} disabled={currentPage === totalPages}>
 						<BiLastPage />
 					</button>
 				</li>
@@ -75,7 +71,6 @@ Pagination.propTypes = {
 	totalItems: PropTypes.number.isRequired,
 	currentPage: PropTypes.number.isRequired,
 	paginate: PropTypes.func.isRequired,
-	isLoading: PropTypes.bool.isRequired,
 }
 
 export default Pagination

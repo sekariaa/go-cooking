@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import image1 from '../assets/hero-image1.jpg'
-import image2 from '../assets/hero-image2.jpg'
-import image3 from '../assets/hero-image3.jpg'
+import image1 from '../../assets/hero-image1.jpg'
+import image2 from '../../assets/hero-image2.jpg'
+import image3 from '../../assets/hero-image3.jpg'
 
 function Hero() {
 	const imageList = [image1, image2, image3]

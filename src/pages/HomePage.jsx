@@ -1,23 +1,25 @@
 import React from 'react'
-import Navigation from '../components/Navigation'
-import Hero from '../components/Hero'
-import CategoryCardList from '../components/CategoryCardList'
-import RecipesList from '../components/RecipesList'
-import Sidebar from '../components/Sidebar'
+import Navigation from '../components/Navbar/Navigation'
+import Hero from '../components/Hero/Hero'
+import CategoryCardList from '../components/Carousel/CategoryCardList'
+import RecipesList from '../components/RecipesList/RecipesList'
+import Sidebar from '../components/Filter/Sidebar'
 
 function HomePage() {
 	let content
 
 	if (window.innerWidth >= 1024) {
 		content = (
-			<div className="flex px-4 gap-4">
+			<div className="flex px-4 gap-2">
 				<Sidebar />
-				<RecipesList />
+				<div className="mx-auto">
+					<RecipesList />
+				</div>
 			</div>
 		)
 	} else if (window.innerWidth < 1024) {
 		content = (
-			<div>
+			<div className="flex flex-col">
 				<Sidebar />
 				<RecipesList />
 			</div>

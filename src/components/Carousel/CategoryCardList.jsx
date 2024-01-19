@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import { Context } from '../context/context'
+import { Context } from '../../context/context'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'

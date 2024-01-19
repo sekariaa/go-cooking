@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { createContext, useState, useCallback} from 'react'
+import React, { createContext, useState, useCallback } from 'react'
 
 export const Context = createContext()
 
@@ -25,6 +25,9 @@ export const Provider = (props) => {
 	const [categoriesSelected, setCategoriesSelected] = useState([])
 	const [areasOption, setAreasOption] = useState([])
 	const [areasSelected, setAreasSelected] = useState([])
+
+	//search
+	const [searchInput, setSearchInput] = useState('')
 
 	const getCategories = async () => {
 		try {
@@ -69,13 +72,18 @@ export const Provider = (props) => {
 				}
 			}
 
-			const flatRecipes = recipesData.flat()
-			const filteredRecipes = (state.categoriesSelected.length || state.areasSelected.length)
-      ? flatRecipes.filter((recipe) => (
-          (state.categoriesSelected.length ? state.categoriesSelected.includes(recipe.category) : true) &&
-          (state.areasSelected.length ? state.areasSelected.includes(recipe.area) : true)
-        ))
-      : flatRecipes;
+			let filteredRecipes = recipesData.flat()
+
+			// Apply search logic
+			if (searchInput.trim() !== '') {
+				const searchLowerCase = searchInput.toLowerCase()
+				filteredRecipes = filteredRecipes.filter((recipe) => recipe.name.toLowerCase().includes(searchLowerCase))
+			}
+
+			// Apply area and category filtering
+			if (categoriesSelected.length > 0 || areasSelected.length > 0) {
+				filteredRecipes = filteredRecipes.filter((recipe) => (categoriesSelected.length === 0 || categoriesSelected.includes(recipe.category)) && (areasSelected.length === 0 || areasSelected.includes(recipe.area)))
+			}
 
 			filteredRecipes.sort((a, b) => {
 				const nameA = a.name.toUpperCase()
@@ -139,6 +147,7 @@ export const Provider = (props) => {
 		categoriesSelected,
 		areasOption,
 		areasSelected,
+		searchInput,
 	}
 
 	let handleFunction = {
@@ -146,11 +155,14 @@ export const Provider = (props) => {
 		handlePopupOpen,
 		handlePopupClose,
 		getAllRecipes,
+		setIsAsc,
 		toggleSortOrder,
 		setCategoriesOption,
 		setCategoriesSelected,
 		setAreasSelected,
 		getAreas,
+		// filterRecipes,
+		setSearchInput,
 	}
 
 	// eslint-disable-next-line react/prop-types

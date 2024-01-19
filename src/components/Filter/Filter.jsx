@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Context } from '../context/context'
+import { Context } from '../../context/context'
 import { IoChevronDownSharp } from 'react-icons/io5'
 
 function Filter() {

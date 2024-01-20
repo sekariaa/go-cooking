@@ -16,6 +16,7 @@ export const Provider = (props) => {
 	const [allStrCategory, setAllStrCategory] = useState([])
 	const [allStrArea, setAllStrArea] = useState([])
 	const [allStrTags, setAllStrTags] = useState([])
+	const [allIdMeal, setAllIdMeal] = useState([])
 
 	//sorting
 	const [isAsc, setIsAsc] = useState(true)
@@ -28,6 +29,9 @@ export const Provider = (props) => {
 
 	//search
 	const [searchInput, setSearchInput] = useState('')
+
+	// detail
+	const [detailRecipe, setDetailRecipe] = useState({})
 
 	const getCategories = async () => {
 		try {
@@ -67,6 +71,7 @@ export const Provider = (props) => {
 							category: meal.strCategory,
 							area: meal.strArea,
 							tags: meal.strTags,
+							id: meal.idMeal,
 						}))
 					)
 				}
@@ -100,6 +105,7 @@ export const Provider = (props) => {
 			setAllMealThumbs(filteredRecipes.map((recipe) => recipe.image))
 			setAllStrCategory(filteredRecipes.map((recipe) => recipe.category))
 			setAllStrArea(filteredRecipes.map((recipe) => recipe.area))
+			setAllIdMeal(filteredRecipes.map((recipe) => recipe.id))
 
 			const formattedTags = filteredRecipes.map((recipe) =>
 				recipe.tags
@@ -132,6 +138,22 @@ export const Provider = (props) => {
 		}
 	}
 
+	const getDetailRecipe = async (id) => {
+		try {
+			const response = await axios.get(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
+
+			const [meal] = response.data.meals || []
+
+			if (meal) {
+				setDetailRecipe(meal)
+			} else {
+				console.error('Recipe not found')
+			}
+		} catch (error) {
+			console.error('Error fetching areas:', error.message)
+		}
+	}
+
 	let state = {
 		categories,
 		imageCategories,
@@ -142,12 +164,14 @@ export const Provider = (props) => {
 		allStrCategory,
 		allStrArea,
 		allStrTags,
+		allIdMeal,
 		isAsc,
 		categoriesOption,
 		categoriesSelected,
 		areasOption,
 		areasSelected,
 		searchInput,
+		detailRecipe,
 	}
 
 	let handleFunction = {
@@ -161,8 +185,8 @@ export const Provider = (props) => {
 		setCategoriesSelected,
 		setAreasSelected,
 		getAreas,
-		// filterRecipes,
 		setSearchInput,
+		getDetailRecipe,
 	}
 
 	// eslint-disable-next-line react/prop-types

@@ -1,8 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { MdNavigateNext } from 'react-icons/md'
+import { useNavigate } from 'react-router-dom'
 
-function RecipeCard({ image, name, category, area, tags }) {
+function RecipeCard({ image, name, category, area, tags, id }) {
+	const navigate = useNavigate()
 	const maxCardHeight = 500
 	const maxCardWidth = 300
 
@@ -58,7 +60,7 @@ function RecipeCard({ image, name, category, area, tags }) {
 					</div>
 				)}
 				<div className="cursor-pointer">
-					<div className="flex justify-between hover:text-custom-orange">
+					<div className="flex justify-between hover:text-custom-orange" onClick={() => navigate(`detail/${id}`)}>
 						<div className="text-base">Read More</div>
 						<div className="text-lg">
 							<MdNavigateNext />
@@ -75,7 +77,8 @@ RecipeCard.propTypes = {
 	name: PropTypes.string.isRequired,
 	category: PropTypes.string.isRequired,
 	area: PropTypes.string.isRequired,
-	tags: PropTypes.string,
+	tags: PropTypes.string.isRequired,
+	id: PropTypes.string.isRequired,
 }
 
 export default RecipeCard

@@ -54,6 +54,7 @@ function RecipesList() {
 										category={state.allStrCategory[index + indexOfFirstRecipe]}
 										area={state.allStrArea[index + indexOfFirstRecipe]}
 										tags={state.allStrTags[index + indexOfFirstRecipe]}
+										id={state.allIdMeal[index + indexOfFirstRecipe]}
 									/>
 								</div>
 							</div>

@@ -35,34 +35,32 @@ function Detail({ data }) {
 		: 'No tags'
 
 	return (
-		<div>
-			<div>
-				<h1 className="text-5xl text-center mb-1">{data.strMeal}</h1>
-				<div className="flex flex-row items-center justify-center mb-2">
-					<p className="text-xs mx-2">
-						{data.strCategory} from {data.strArea}
-					</p>
-					<p>|</p>
-					<p className="text-xs mx-2">{formattedTags}</p>
-					<p>|</p>
-					<a className="mx-2 hover:text-custom-orange" href={data.strSource} target="_blank" rel="noopener noreferrer">
-						<button>
-							<FaLink />
-						</button>
-					</a>{' '}
-					<br />
-					<a className="hover:text-custom-orange" href={data.strYoutube} target="_blank" rel="noopener noreferrer">
-						<button>
-							<FaYoutube />
-						</button>
-					</a>
-				</div>
-				<img className="w-96 rounded-full h-96 mx-auto" src={data.strMealThumb} alt={data.strMeal} />
-				<h2 className="text-custom-orange">Ingredients</h2>
-				<div className="py-1">{ingredients}</div>
-				<h2 className="text-custom-orange">Instructions</h2>
-				{listInstructions}
+		<div className="mb-2">
+			<h1 className="text-5xl text-center mb-1">{data.strMeal}</h1>
+			<div className="flex flex-row items-center justify-center mb-2">
+				<p className="text-xs mx-2">
+					{data.strCategory} from {data.strArea}
+				</p>
+				<p>|</p>
+				<p className="text-xs mx-2">{formattedTags}</p>
+				<p>|</p>
+				<a className="mx-2 hover:text-custom-orange" href={data.strSource} target="_blank" rel="noopener noreferrer">
+					<button>
+						<FaLink />
+					</button>
+				</a>{' '}
+				<br />
+				<a className="hover:text-custom-orange" href={data.strYoutube} target="_blank" rel="noopener noreferrer">
+					<button>
+						<FaYoutube />
+					</button>
+				</a>
 			</div>
+			<img className="w-96 rounded-full h-96 mx-auto" src={data.strMealThumb} alt={data.strMeal} />
+			<h2 className="text-custom-orange">Ingredients</h2>
+			<div className="py-1">{ingredients}</div>
+			<h2 className="text-custom-orange">Instructions</h2>
+			{listInstructions}
 		</div>
 	)
 }

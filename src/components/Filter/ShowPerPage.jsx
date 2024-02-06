@@ -2,8 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 function ShowPerPage({ itemsPerPage, setItemsPerPage }) {
-	const handleItemsPerPageChange = (selectedOption) => {
-		setItemsPerPage(selectedOption.value)
+	const handleItemsPerPageChange = (e) => {
+		const selectedOption = parseInt(e.target.value, 10) 
+		setItemsPerPage(selectedOption)
 	}
 
 	return (

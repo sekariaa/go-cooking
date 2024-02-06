@@ -11,7 +11,7 @@ function CardPopup({ image, category, description, close }) {
 	}, [])
 
 	return (
-		<div className="max-w-[1640px] mx-auto fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex items-center justify-center ">
+		<div className="max-w-[1640px] mx-auto fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex items-center justify-center z-10">
 			<div className="w-3/4 max-h-max lg:max-w-3xl bg-white p-4 rounded ">
 				<button className="text-3xl" onClick={close}>
 					<IoIosClose />

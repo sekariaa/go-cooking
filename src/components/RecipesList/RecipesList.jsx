@@ -1,10 +1,11 @@
 import React, { useState, useContext, useEffect } from 'react'
 import RecipeCard from './RecipeCard'
 import { Context } from '../../context/context'
-import Loading from '../Loading'
 import Pagination from '../Filter/Pagination'
 import ShowPerPage from '../Filter/ShowPerPage'
 import Search from '../Filter/Search'
+import NoData from '../NoData'
+import RecipeCardSkeleton from './RecipeCardSkeleton'
 
 function RecipesList() {
 	const { state, handleFunction } = useContext(Context)
@@ -41,26 +42,40 @@ function RecipesList() {
 			</div>
 			<h1 className="text-center text-2xl font-medium pb-2">All Recipes</h1>
 			{loading ? (
-				<Loading />
+				<div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4">
+					{[...Array(itemsPerPage)].map((_, index) => (
+						<div key={index}>
+							<div className="flex justify-center">
+								<RecipeCardSkeleton />
+							</div>
+						</div>
+					))}
+				</div>
 			) : (
 				<>
-					<div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4">
-						{currentRecipes.map((mealName, index) => (
-							<div key={index + indexOfFirstRecipe}>
-								<div className="flex justify-center">
-									<RecipeCard
-										image={state.allMealThumbs[index + indexOfFirstRecipe]}
-										name={mealName}
-										category={state.allStrCategory[index + indexOfFirstRecipe]}
-										area={state.allStrArea[index + indexOfFirstRecipe]}
-										tags={state.allStrTags[index + indexOfFirstRecipe]}
-										id={state.allIdMeal[index + indexOfFirstRecipe]}
-									/>
-								</div>
+					{currentRecipes.length === 0 ? (
+						<NoData />
+					) : (
+						<>
+							<div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4">
+								{currentRecipes.map((mealName, index) => (
+									<div key={index + indexOfFirstRecipe}>
+										<div className="flex justify-center">
+											<RecipeCard
+												image={state.allMealThumbs[index + indexOfFirstRecipe]}
+												name={mealName}
+												category={state.allStrCategory[index + indexOfFirstRecipe]}
+												area={state.allStrArea[index + indexOfFirstRecipe]}
+												tags={state.allStrTags[index + indexOfFirstRecipe]}
+												id={state.allIdMeal[index + indexOfFirstRecipe]}
+											/>
+										</div>
+									</div>
+								))}
 							</div>
-						))}
-					</div>
-					<Pagination itemsPerPage={itemsPerPage} totalItems={state.allStrMeal.length} currentPage={currentPage} paginate={paginate} />
+							<Pagination itemsPerPage={itemsPerPage} totalItems={state.allStrMeal.length} currentPage={currentPage} paginate={paginate} />
+						</>
+					)}
 				</>
 			)}
 		</div>

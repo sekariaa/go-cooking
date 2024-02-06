@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Context } from '../../context/context'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
@@ -6,13 +6,20 @@ import 'slick-carousel/slick/slick-theme.css'
 
 import CategoryCard from './CategoryCard'
 import PopupCard from './PopupCard'
+import CategorySkeleton from './CategorySkeleton'
 
-function CardListCategory() {
+function CategoryCardList() {
 	const { state, handleFunction } = useContext(Context)
+	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
-		handleFunction.getCategories()
-	}, [])
+		const fetchData = async () => {
+			await handleFunction.getCategories()
+			setLoading(false)
+		}
+
+		fetchData()
+	}, [handleFunction])
 
 	const handleClose = () => {
 		handleFunction.handlePopupClose()
@@ -49,16 +56,27 @@ function CardListCategory() {
 	return (
 		<div className="max-w-[1640px] mx-auto p-4 overflow-hidden">
 			<h2 className="text-center text-2xl font-medium pb-2">Categories</h2>
-			<Slider {...sliderSettings}>
-				{state.categories.map((category, index) => (
-					<div key={index}>
-						<CategoryCard category={category} image={state.imageCategories[index]} open={() => handleFunction.handlePopupOpen(category, state.imageCategories[index])} />
-					</div>
-				))}
-			</Slider>
-			{state.popupData && <PopupCard image={state.popupData.image} category={state.popupData.category} description={state.categoriesDesc[state.categories.indexOf(state.popupData.category)]} close={() => handleClose()} />}
+			{loading ? (
+				<Slider {...sliderSettings}>
+					{[1, 2, 3, 4, 5].map((_, index) => (
+						<div key={index}>
+							<CategorySkeleton />
+						</div>
+					))}
+				</Slider>
+			) : (
+				<Slider {...sliderSettings}>
+					{state.categories.map((category, index) => (
+						<div key={index}>
+							<CategoryCard category={category} image={state.imageCategories[index]} open={() => handleFunction.handlePopupOpen(category, state.imageCategories[index])} />
+						</div>
+					))}
+				</Slider>
+			)}
+
+			{state.popupData && <PopupCard image={state.popupData.image} category={state.popupData.category} description={state.categoriesDesc[state.categories.indexOf(state.popupData.category)]} close={handleClose} />}
 		</div>
 	)
 }
 
-export default CardListCategory
+export default CategoryCardList

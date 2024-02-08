@@ -9,7 +9,7 @@ function RecipeCard({ image, name, category, area, tags, id }) {
 	const maxCardWidth = 300
 
 	const truncatedName = name.length > 20 ? `${name.substring(0, 20)}...` : name
-	const tagList = tags && tags.split('#').slice(1)
+	const tagList = tags && tags.split(',')
 
 	let totalTagLength = 0
 	let displayedTags = []

@@ -1,5 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { Context } from '../../context/context'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchCategories, openPopup, closePopup } from '../../states/categories/action'
+import { setLoading } from '../../states/loading/action'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
@@ -9,20 +11,37 @@ import PopupCard from './PopupCard'
 import CategorySkeleton from './CategorySkeleton'
 
 function CategoryCardList() {
-	const { state, handleFunction } = useContext(Context)
-	const [loading, setLoading] = useState(true)
+	const dispatch = useDispatch()
+	const { categories, popupData } = useSelector((state) => state.categories)
+	const loading = useSelector((state) => state.loading.loading)
 
 	useEffect(() => {
-		const fetchData = async () => {
-			await handleFunction.getCategories()
-			setLoading(false)
+		dispatch(setLoading(true))
+		dispatch(fetchCategories()).then(() => dispatch(setLoading(false)))
+
+		const savedPopupData = JSON.parse(localStorage.getItem('popupData'))
+		if (savedPopupData) {
+			dispatch(openPopup(savedPopupData))
 		}
 
-		fetchData()
-	}, [handleFunction])
+		return () => {
+			if (popupData) {
+				dispatch(closePopup())
+			}
+		}
+	}, [dispatch])
 
-	const handleClose = () => {
-		handleFunction.handlePopupClose()
+	const handlePopupOpen = (category) => {
+		dispatch(
+			openPopup({
+				image: category.strCategoryThumb,
+				description: category.strCategoryDescription,
+			})
+		)
+	}
+
+	const handlePopupClose = () => {
+		dispatch(closePopup())
 	}
 
 	const sliderSettings = {
@@ -66,15 +85,15 @@ function CategoryCardList() {
 				</Slider>
 			) : (
 				<Slider {...sliderSettings}>
-					{state.categories.map((category, index) => (
-						<div key={index}>
-							<CategoryCard category={category} image={state.imageCategories[index]} open={() => handleFunction.handlePopupOpen(category, state.imageCategories[index])} />
+					{categories.map((category) => (
+						<div key={category.idCategory} onClick={() => handlePopupOpen(category)}>
+							<CategoryCard category={category.strCategory} image={category.strCategoryThumb} />
 						</div>
 					))}
 				</Slider>
 			)}
 
-			{state.popupData && <PopupCard image={state.popupData.image} category={state.popupData.category} description={state.categoriesDesc[state.categories.indexOf(state.popupData.category)]} close={handleClose} />}
+			{popupData && <PopupCard image={popupData.image} description={popupData.description} close={handlePopupClose} />}
 		</div>
 	)
 }

@@ -1,12 +1,18 @@
 import { combineReducers } from 'redux'
-import loadingReducer from './loading/reducer'
 import categoriesReducer from './categories/reducer'
 import recipesReducer from './recipes/reducer'
+import paginationReducer from './pagination/reducer'
+import showPerPageReducer from './showPerPage/reducer'
+import detailReducer from './detail/reducer'
+import areasReducer from './areas/reducer'
 
 const rootReducer = combineReducers({
-	loading: loadingReducer,
 	categories: categoriesReducer,
 	recipes: recipesReducer,
+	pagination: paginationReducer,
+	showPerPage: showPerPageReducer,
+	detail: detailReducer,
+	areas: areasReducer,
 })
 
 export default rootReducer

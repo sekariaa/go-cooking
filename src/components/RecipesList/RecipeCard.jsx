@@ -77,7 +77,7 @@ RecipeCard.propTypes = {
 	name: PropTypes.string.isRequired,
 	category: PropTypes.string.isRequired,
 	area: PropTypes.string.isRequired,
-	tags: PropTypes.string.isRequired,
+	tags: PropTypes.string,
 	id: PropTypes.string.isRequired,
 }
 

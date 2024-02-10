@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchCategories, openPopup, closePopup } from '../../states/categories/action'
-import { setLoading } from '../../states/loading/action'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
@@ -13,11 +12,10 @@ import CategorySkeleton from './CategorySkeleton'
 function CategoryCardList() {
 	const dispatch = useDispatch()
 	const { categories, popupData } = useSelector((state) => state.categories)
-	const loading = useSelector((state) => state.loading.loading)
+	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
-		dispatch(setLoading(true))
-		dispatch(fetchCategories()).then(() => dispatch(setLoading(false)))
+		dispatch(fetchCategories()).then(() => setLoading(false))
 
 		const savedPopupData = JSON.parse(localStorage.getItem('popupData'))
 		if (savedPopupData) {

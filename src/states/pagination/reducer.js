@@ -1,11 +1,11 @@
 import { ActionType } from './action'
 
-const reducer = (state = { loading: true }, action) => {
+const reducer = (state = { currentPage: 1 }, action) => {
 	switch (action.type) {
-		case ActionType.SET_LOADING:
+		case ActionType.SET_CURRENT_PAGE:
 			return {
 				...state,
-				loading: action.payload.status,
+				currentPage: action.payload.currentPage,
 			}
 		default:
 			return state

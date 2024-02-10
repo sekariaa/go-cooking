@@ -17,7 +17,6 @@ function Hero() {
 
 		const interval = setInterval(changeImage, 10000)
 
-		// Simulating image loading, set loading to false after some time
 		setTimeout(() => {
 			setLoading(false)
 		}, 3000)

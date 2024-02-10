@@ -1,24 +1,20 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchDetail } from '../states/detail/action'
 import { Link, useParams } from 'react-router-dom'
-import { Context } from '../context/context'
 import Detail from '../components/Detail/Detail'
 import Loading from '../components/Loading'
 import { IoIosArrowBack } from 'react-icons/io'
 
 function DetailPages() {
-	const { state, handleFunction } = useContext(Context)
-	const [isLoading, setLoading] = useState(false)
+	const dispatch = useDispatch()
+	const { detail } = useSelector((state) => state.detail)
+	const [loading, setLoading] = useState(true)
 	const { id } = useParams()
 
 	useEffect(() => {
-		const fetchData = async () => {
-			setLoading(true)
-			await handleFunction.getDetailRecipe(id)
-			setLoading(false)
-		}
-
-		fetchData()
-	}, [id])
+		dispatch(fetchDetail(id)).then(() => setLoading(false))
+	}, [dispatch, id])
 
 	return (
 		<section className="max-w-[1640px] mx-auto px-4 mt-4">
@@ -27,7 +23,7 @@ function DetailPages() {
 					<IoIosArrowBack />{' '}
 				</Link>
 			</div>
-			<div className="">{isLoading ? <Loading /> : <Detail data={state.detailRecipe} />}</div>
+			<div className="">{loading ? <Loading /> : <Detail data={detail} />}</div>
 		</section>
 	)
 }

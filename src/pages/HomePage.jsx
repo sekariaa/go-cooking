@@ -2,9 +2,8 @@ import React from 'react'
 import Navigation from '../components/Navbar/Navigation'
 import Hero from '../components/Hero/Hero'
 import CategoryCardList from '../components/Carousel/CategoryCardList'
-// import Tes from '../components/Tes'
 import RecipesList from '../components/RecipesList/RecipesList'
-// import Sidebar from '../components/Filter/Sidebar'
+import Sidebar from '../components/Filter/Sidebar'
 
 function HomePage() {
 	let content
@@ -12,7 +11,7 @@ function HomePage() {
 	if (window.innerWidth >= 1024) {
 		content = (
 			<div className="flex px-4 gap-2">
-				{/* <Sidebar /> */}
+				<Sidebar />
 				<div className="mx-auto">
 					<RecipesList />
 				</div>
@@ -21,7 +20,7 @@ function HomePage() {
 	} else if (window.innerWidth < 1024) {
 		content = (
 			<div className="flex flex-col">
-				{/* <Sidebar /> */}
+				<Sidebar />
 				<RecipesList />
 			</div>
 		)
@@ -32,7 +31,6 @@ function HomePage() {
 			<Navigation />
 			<Hero />
 			<CategoryCardList />
-			{/* <Tes /> */}
 			{content}
 		</div>
 	)

@@ -20,11 +20,11 @@ The application will run at http://localhost:3000.
 ## Dependencies
 Below is the list of main dependencies and their versions used in this project:
 
-- react: ^17.0.2
-- react-dom: ^17.0.2
-- redux: ^4.1.2
-- react-redux: ^7.2.6
-- react-router-dom: ^6.0.2
+- react: ^18.2.0
+- react-dom: ^18.2.0
+- redux: ^5.0.1
+- react-redux: ^9.1.0
+- react-router-dom: ^6.21.1
 - react-icons: ^4.12.0
 - react-loading-skeleton: ^3.4.0
 
